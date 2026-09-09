@@ -1,0 +1,24 @@
+# 生成和归档文件
+generated/
+literature/archive/
+runs/
+
+# 原始音视频和可能含身份或同意信息的材料
+data/raw/
+data/metadata/*identity*
+data/metadata/*consent*
+*.wav
+*.flac
+*.mp3
+*.mp4
+
+# 模型权重和训练检查点
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Python和Office临时文件
+**/__pycache__/
+*.py[cod]
+~$*.docx
