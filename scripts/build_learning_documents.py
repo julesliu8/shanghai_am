@@ -1,4 +1,4 @@
-"""Revise the user's proposal in place and build its teaching companion."""
+"""Build the current boundary-prediction proposal and student handbook."""
 from pathlib import Path
 import shutil, hashlib, json
 from docx import Document
@@ -9,6 +9,7 @@ from docx.oxml.ns import qn
 
 ROOT=Path(__file__).resolve().parents[1]
 NAME='低资源条件下句法与构式知识辅助的上海话变调域预测研究.docx'
+HANDBOOK_NAME='上海话变调界限预测学习与实验手册.docx'
 
 def configure(d):
     for name,size in [('Normal',11),('Title',20),('Heading 1',15),('Heading 2',12.5)]:
@@ -61,7 +62,7 @@ def add_md(d,path,part=False,part_title=None):
                 rows.append([c.strip() for c in lines[i].strip().strip('|').split('|')]);i+=1
             add_table(d,rows);continue
         if line.startswith('# '):
-            if part:d.add_heading(part_title or '第二部分 三套理论的验证卡与假设结果',level=1)
+            if part:d.add_heading(part_title or '变调界限预测学习',level=1)
             else:d.add_paragraph(line[2:],style='Title')
         elif line.startswith('## '):d.add_heading(line[3:],level=1)
         elif line.startswith('### '):d.add_heading(line[4:],level=2)
@@ -76,11 +77,13 @@ def main():
     original_hash=hashlib.sha256(archive.read_bytes()).hexdigest()
     d=Document(p);empty_body(d);configure(d);add_md(d,ROOT/'docs/00_原方案修订正文.md');d.save(p)
     teaching=Document(archive);empty_body(teaching);configure(teaching)
-    teaching.add_paragraph('上海话整句韵律学生学习与实验手册',style='Title')
-    add_md(teaching,ROOT/'docs/07_本科生导读与术语例解.md',part=True,part_title='第一部分 本科生导读与术语例解')
-    add_md(teaching,ROOT/'docs/05_学生学习文档.md',part=True,part_title='第二部分 上海话整句韵律理论与实验学习')
-    add_md(teaching,ROOT/'docs/06_三套理论验证卡.md',part=True,part_title='第三部分 三套理论的验证卡与假设结果')
-    out=ROOT/'docs/上海话整句韵律学生学习与实验手册.docx';teaching.save(out)
+    teaching.add_paragraph('上海话变调界限预测学习与实验手册',style='Title')
+    add_md(teaching,ROOT/'docs/07_本科生导读与术语例解.md',part=True,part_title='第一部分 本科生导读')
+    teaching.add_page_break()
+    add_md(teaching,ROOT/'docs/05_学生学习文档.md',part=True,part_title='第二部分 变调界限预测学习')
+    teaching.add_page_break()
+    add_md(teaching,ROOT/'docs/06_三套理论验证卡.md',part=True,part_title='第三部分 变调界限预测验证卡')
+    out=ROOT/'docs'/HANDBOOK_NAME;teaching.save(out)
     (ROOT/'generated/docx_build_manifest.json').write_text(json.dumps({'original_backup':str(archive),'original_sha256':original_hash,'outputs':[str(p),str(out)]},ensure_ascii=False,indent=2),encoding='utf-8')
     print(p);print(out)
 
