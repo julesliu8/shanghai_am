@@ -1,0 +1,24 @@
+{
+  "checked_date": "2026-09-10",
+  "model_id": "TencentGameMate/chinese-wav2vec2-base",
+  "revision": "3991242c806928916fff4a8c0e4f76acf661b743",
+  "license_model_card": "MIT",
+  "pretraining_model_card": "Self-supervised audio pretraining on 10k hours WenetSpeech L; no tokenizer",
+  "architecture": "Wav2Vec2 base; 12 layers; hidden size 768; about 95 million parameters",
+  "adaptation": "New project phone CTC head; 45 phones plus blank; convolutional frontend frozen; head first then final two transformer layers",
+  "sources": {
+    "model_card": "https://huggingface.co/TencentGameMate/chinese-wav2vec2-base/blob/3991242c806928916fff4a8c0e4f76acf661b743/README.md",
+    "config": "https://huggingface.co/TencentGameMate/chinese-wav2vec2-base/blob/3991242c806928916fff4a8c0e4f76acf661b743/config.json",
+    "model_api": "https://huggingface.co/api/models/TencentGameMate/chinese-wav2vec2-base",
+    "file_api": "https://huggingface.co/api/models/TencentGameMate/chinese-wav2vec2-base/tree/main"
+  },
+  "weights": {
+    "path": "pytorch_model.bin",
+    "bytes": 380261837,
+    "sha256_from_official_lfs": "be2da40c9e7ae26bfc904a3ed79ebb9e8f060bec6dba85d6a6ae86114bc38901",
+    "downloaded_in_research": false
+  },
+  "small_files": ["config.json", "preprocessor_config.json", "README.md"],
+  "exclude": ["chinese-wav2vec2-base-fairseq-ckpt.pt"],
+  "warning": "Chinese audio pretraining is not verified Shanghai dialect alignment. CTC emissions are not complete phone/syllable boundaries. Training/test boundary validation remains outstanding."
+}

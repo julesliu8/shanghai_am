@@ -22,3 +22,18 @@ data/metadata/*consent*
 **/__pycache__/
 *.py[cod]
 ~$*.docx
+
+# Private corpus and machine annotations
+data/annotations/
+data/metadata/
+data/lexicons/
+data/splits/
+models/
+*.bin
+*.tar.gz
+*.zip
+*.rar
+.env
+.env.*
+*.pem
+*.key
